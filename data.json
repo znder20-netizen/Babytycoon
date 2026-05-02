@@ -2,10 +2,6 @@
   "dueDate": "",
   "notes": "",
   "metrics": {
-    "energy": 0,
-    "stress": 0,
-    "prep": 0,
-    "partner": 0,
     "score": 0,
     "level": 1
   },
@@ -13,7 +9,5 @@
   "bagMama": [],
   "bagBaby": [],
   "babyausstattung": [],
-  "bagPartner": [],
-  "partnerTasks": [],
   "weights": []
 }
