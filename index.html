@@ -2,32 +2,24 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>BabyTycoon 2.0 – Pastell Game Edition</title>
+  <title>BabyTycoon 2.1 – Deine Version</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-    /* ============================================================
-       GLOBAL COLORS – Pastell-Verlauf + Soft Glow
-       ============================================================ */
     :root {
       --pastell-blue: #A7C7FF;
       --pastell-rosa: #FFB7CE;
       --pastell-mint: #B8F2E6;
-      --cream: #FFF9F4;
-      --text-dark: #444;
       --card: rgba(255,255,255,0.85);
+      --text-dark: #444;
       --shadow: 0 6px 18px rgba(0,0,0,0.08);
       --glow-soft: 0 0 25px rgba(255,255,255,0.4);
     }
 
-    /* ============================================================
-       BODY – diagonaler Pastell-Verlauf + Soft Glow
-       ============================================================ */
     body {
       margin: 0;
       padding: 16px;
       font-family: "Segoe UI", system-ui, sans-serif;
-      color: var(--text-dark);
       background: linear-gradient(135deg,
         var(--pastell-blue),
         var(--pastell-rosa),
@@ -35,6 +27,7 @@
       );
       background-attachment: fixed;
       animation: bgMove 12s ease-in-out infinite alternate;
+      color: var(--text-dark);
     }
 
     @keyframes bgMove {
@@ -42,9 +35,6 @@
       100% { background-position: 100% 100%; }
     }
 
-    /* ============================================================
-       CARDS – Pastell, Glow, Game-Feeling
-       ============================================================ */
     .card {
       background: var(--card);
       padding: 18px;
@@ -72,15 +62,11 @@
       margin: 0 0 12px;
       font-size: 22px;
       font-weight: 700;
-      color: var(--text-dark);
     }
 
     .center { text-align: center; }
     .flex { display: flex; align-items: center; justify-content: space-between; }
 
-    /* ============================================================
-       BUTTONS – Pastell, Glow, Game-Feeling
-       ============================================================ */
     .btn {
       padding: 10px 16px;
       border-radius: 14px;
@@ -99,14 +85,6 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
 
-    .btn-sync {
-      background: linear-gradient(135deg, var(--pastell-mint), var(--pastell-blue));
-    }
-
-    .btn-danger {
-      background: #ff6b6b;
-    }
-
     input, textarea {
       width: 100%;
       padding: 10px;
@@ -118,9 +96,6 @@
       backdrop-filter: blur(4px);
     }
 
-    /* ============================================================
-       LIST ITEMS – Slide-In Animation
-       ============================================================ */
     .list {
       margin-top: 10px;
       display: flex;
@@ -154,9 +129,7 @@
       cursor: pointer;
     }
 
-    /* ============================================================
-       COUNTDOWN CIRCLE – Game HUD
-       ============================================================ */
+    /* Countdown */
     .circle-container {
       width: 180px;
       height: 180px;
@@ -172,42 +145,9 @@
       text-align: center;
       font-size: 18px;
       font-weight: 700;
-      color: var(--text-dark);
     }
 
-    .countdown-cards {
-      display: flex;
-      gap: 12px;
-      margin-top: 16px;
-      flex-wrap: wrap;
-    }
-
-    .count-card {
-      flex: 1;
-      min-width: 100px;
-      background: rgba(255,255,255,0.85);
-      padding: 14px;
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      text-align: center;
-      backdrop-filter: blur(6px);
-    }
-
-    .count-card h3 {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text-dark);
-    }
-
-    .count-card span {
-      font-size: 14px;
-      color: #666;
-    }
-
-    /* ============================================================
-       AVATAR – Cartoon-Cute Basis (160px)
-       ============================================================ */
+    /* Avatar */
     #babyAvatar svg {
       width: 160px;
       height: 160px;
@@ -218,21 +158,14 @@
     .baby-mouth { stroke: #444; stroke-width: 4; fill: none; }
     .baby-crown { fill: gold; stroke: #d4a300; stroke-width: 2; }
     .baby-glow { filter: drop-shadow(0 0 12px gold); }
-
-    /* ============================================================
-       SOUND VOLUME (40%)
-       ============================================================ */
-    audio {
-      display: none;
-    }
   </style>
 </head>
 
 <body>
 
-<h1>👶 BabyTycoon 2.0 – Pastell Game Edition</h1>
+<h1>👶 BabyTycoon 2.1 – Deine Version</h1>
 
-<!-- COUNTDOWN CARD -->
+<!-- COUNTDOWN -->
 <div class="card center">
   <h2>⏳ Countdown bis ET</h2>
 
@@ -241,46 +174,28 @@
     <div class="circle-text" id="circleText">–</div>
   </div>
 
-  <div class="countdown-cards">
-    <div class="count-card">
-      <h3 id="daysLeft">–</h3>
-      <span>Tage übrig</span>
-    </div>
-    <div class="count-card">
-      <h3 id="weekDay">–</h3>
-      <span>SSW + Tage</span>
-    </div>
-    <div class="count-card">
-      <h3 id="percentDone">–%</h3>
-      <span>Fortschritt</span>
-    </div>
-  </div>
-</div>
-<!-- GEBURTSTERMIN EINTRAGEN -->
-<div class="card">
-  <h2>📅 Geburtstermin</h2>
-
-  <div class="flex" style="gap:10px;">
+  <div class="flex" style="margin-top:16px; gap:10px;">
     <input type="date" id="dueDateInput" onchange="saveDueDate()">
     <button class="btn" onclick="saveDueDate()">Speichern</button>
   </div>
 
-  <div style="margin-top:8px; font-size:14px; color:#555;">
+  <div style="margin-top:8px; font-size:14px;">
     Aktueller ET: <span id="dueDateDisplay">–</span>
   </div>
 </div>
-<!-- BABY AVATAR -->
+
+<!-- AVATAR -->
 <div class="card center">
   <h2>👶 Baby Avatar</h2>
   <div id="babyAvatar"></div>
-  <div class="muted">Avatar entwickelt sich mit eurem Level</div>
+  <div style="font-size:13px; opacity:0.7;">Avatar entwickelt sich mit eurem Level</div>
 </div>
-<!-- GAME STATUS -->
+<!-- SPIELSTATUS -->
 <div class="card center">
   <h2>🎮 Spielstatus</h2>
 
   <div style="font-size:24px; font-weight:800;" id="xpTotal">0 XP</div>
-  <div style="margin-top:4px; font-size:16px;" id="levelText">Level 1 – Baby Rookie</div>
+  <div style="margin-top:4px; font-size:16px;" id="levelText">Level 1</div>
 
   <div style="margin-top:14px;">
     <div style="height:16px; background:#eee; border-radius:12px; overflow:hidden;">
@@ -295,50 +210,20 @@
   </div>
 </div>
 
-<!-- ACHIEVEMENTS -->
-<div class="card">
-  <h2>🏆 Achievements</h2>
-  <div id="achievementsList" class="list"></div>
-</div>
-
 <!-- NOTIZEN -->
 <div class="card">
   <h2>📝 Notizen</h2>
   <textarea id="notesInput" rows="5" placeholder="Gedanken, Fragen, To‑dos…" onblur="saveNotes()"></textarea>
 </div>
 
-<!-- METRIKEN -->
+<!-- TO-DO LISTE -->
 <div class="card">
-  <h2>📊 Werte</h2>
-
-  <label>Energie</label>
-  <input type="range" min="0" max="100" id="energyInput" oninput="updateMetricLabel('energy')" onchange="saveMetrics()">
-  <div id="energyLabel">0</div>
-
-  <label>Stress</label>
-  <input type="range" min="0" max="100" id="stressInput" oninput="updateMetricLabel('stress')" onchange="saveMetrics()">
-  <div id="stressLabel">0</div>
-
-  <label>Vorbereitung</label>
-  <input type="range" min="0" max="100" id="prepInput" oninput="updateMetricLabel('prep')" onchange="saveMetrics()">
-  <div id="prepLabel">0</div>
-
-  <label>Partner‑Support</label>
-  <input type="range" min="0" max="100" id="partnerInput" oninput="updateMetricLabel('partner')" onchange="saveMetrics()">
-  <div id="partnerLabel">0</div>
-</div>
-
-<!-- GEWICHT -->
-<div class="card">
-  <h2>⚖️ Gewicht</h2>
-
+  <h2>📋 To‑do Liste</h2>
   <div class="flex" style="gap:10px;">
-    <input type="date" id="weightDate">
-    <input type="number" id="weightValue" placeholder="kg" step="0.1">
-    <button class="btn" onclick="addWeight()">+</button>
+    <input id="itemsInput" placeholder="Neuer Punkt">
+    <button class="btn" onclick="addItem()">+</button>
   </div>
-
-  <div id="weightList" class="list"></div>
+  <div id="itemsList" class="list"></div>
 </div>
 
 <!-- KLINIKTASCHE – MAMA -->
@@ -361,46 +246,38 @@
   <div id="bagBabyList" class="list"></div>
 </div>
 
-<!-- KLINIKTASCHE – PARTNER -->
+<!-- BABYAUSSTATTUNG (NEU) -->
 <div class="card">
-  <h2>🧑‍🤝‍🧑 Kliniktasche – Partner</h2>
+  <h2>🧸 Babyausstattung</h2>
   <div class="flex" style="gap:10px;">
-    <input id="bagPartnerInput" placeholder="Neuer Eintrag">
-    <button class="btn" onclick="addBagItem('bagPartner')">+</button>
+    <input id="babyStuffInput" placeholder="Neuer Eintrag">
+    <button class="btn" onclick="addBabyStuff()">+</button>
   </div>
-  <div id="bagPartnerList" class="list"></div>
+  <div id="babyStuffList" class="list"></div>
 </div>
 
-<!-- ALLGEMEINE TO-DOS -->
+<!-- GEWICHT -->
 <div class="card">
-  <h2>📋 To‑do Liste</h2>
-  <div class="flex" style="gap:10px;">
-    <input id="itemsInput" placeholder="Neuer Punkt">
-    <button class="btn" onclick="addItem()">+</button>
-  </div>
-  <div id="itemsList" class="list"></div>
-</div>
+  <h2>⚖️ Gewicht</h2>
 
-<!-- PARTNER TASKS -->
-<div class="card">
-  <h2>💙 Partner‑Tasks (XP‑Boost)</h2>
   <div class="flex" style="gap:10px;">
-    <input id="partnerTaskInput" placeholder="Neue Aufgabe">
-    <button class="btn" onclick="addPartnerTask()">+</button>
+    <input type="date" id="weightDate">
+    <input type="number" id="weightValue" placeholder="kg" step="0.1">
+    <button class="btn" onclick="addWeight()">+</button>
   </div>
-  <div id="partnerTasksList" class="list"></div>
+
+  <div id="weightList" class="list"></div>
 </div>
 
 <!-- MANUELLER SYNC -->
 <div class="card center">
   <h2>🔄 Manuell synchronisieren</h2>
-  <button class="btn btn-sync" onclick="loadData()">Neu laden</button>
+  <button class="btn" onclick="loadData()">Neu laden</button>
   <div id="saveStatus">Bereit</div>
 </div>
-<!-- SOUND EFFECTS (Cute + Modern Mix, 40% Volume) -->
+<!-- SOUND EFFECTS -->
 <audio id="sound-levelup" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAA..."></audio>
 <audio id="sound-check" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAA..."></audio>
-<audio id="sound-achievement" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAA..."></audio>
 <audio id="sound-tap" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAA..."></audio>
 <audio id="sound-pop" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAA..."></audio>
 
@@ -422,22 +299,6 @@ function playSound(id) {
 
 let userData = {};
 let currentSHA = null;
-
-/* Token speichern */
-function saveToken() {
-  const t = document.getElementById("token-input")?.value?.trim();
-  if (!t) return;
-  localStorage.setItem("github_token", t);
-  document.getElementById("token-popup").style.display = "none";
-  loadData();
-}
-
-/* Token prüfen */
-if (!localStorage.getItem("github_token")) {
-  document.getElementById("token-popup").style.display = "flex";
-} else {
-  document.getElementById("token-popup").style.display = "none";
-}
 
 /* Daten laden */
 async function loadData() {
@@ -511,8 +372,19 @@ async function saveData() {
 }
 
 /* ============================================================
-   COUNTDOWN + SSW + TRIMESTER
+   COUNTDOWN + SSW
    ============================================================ */
+
+function saveDueDate() {
+  const v = document.getElementById("dueDateInput").value;
+  if (!v) return;
+
+  userData.dueDate = v;
+  document.getElementById("dueDateDisplay").textContent = v;
+
+  saveData();
+  updateCountdown();
+}
 
 function updateCountdown() {
   if (!userData.dueDate) return;
@@ -530,10 +402,6 @@ function updateCountdown() {
   const ssw = Math.floor(passedDays / 7);
   const sswDays = passedDays % 7;
 
-  document.getElementById("daysLeft").textContent = diffDays + " Tage";
-  document.getElementById("weekDay").textContent = "SSW " + ssw + " + " + sswDays;
-  document.getElementById("percentDone").textContent = percent + "%";
-
   document.getElementById("circleText").textContent = percent + "%";
 
   drawCircle(percent);
@@ -549,14 +417,12 @@ function drawCircle(percent) {
   const center = 90;
   const radius = 75;
 
-  // Hintergrundkreis
   ctx.beginPath();
   ctx.arc(center, center, radius, 0, Math.PI * 2);
   ctx.strokeStyle = "#ffffff66";
   ctx.lineWidth = 12;
   ctx.stroke();
 
-  // Fortschritt
   ctx.beginPath();
   ctx.arc(
     center,
@@ -573,7 +439,7 @@ function drawCircle(percent) {
 }
 
 /* ============================================================
-   CARTOON-CUTE AVATAR (Blinzeln + Wackeln + Glow)
+   AVATAR (Cartoon-Cute)
    ============================================================ */
 
 let blinkTimer = null;
@@ -590,13 +456,6 @@ function renderAvatar(level) {
 
   if (level >= 3) {
     mouth = `<path d="M60 100 Q80 130 100 100" class="baby-mouth"/>`;
-  }
-
-  if (level >= 5) {
-    eyes = `
-      <rect x="42" y="55" width="16" height="6" rx="3" fill="#FFD700"/>
-      <rect x="102" y="55" width="16" height="6" rx="3" fill="#FFD700"/>
-    `;
   }
 
   if (level >= 7) {
@@ -618,7 +477,6 @@ function renderAvatar(level) {
 
   document.getElementById("babyAvatar").innerHTML = svg;
 
-  // Blinzeln
   clearTimeout(blinkTimer);
   blinkTimer = setTimeout(() => {
     playSound("sound-pop");
@@ -630,29 +488,21 @@ function renderAvatar(level) {
 }
 
 /* ============================================================
-   XP + LEVEL SYSTEM + ACHIEVEMENTS
+   XP SYSTEM (vereinfacht)
    ============================================================ */
 
 function computeXP() {
-  const m = userData.metrics;
-
-  const base =
-    m.energy * 0.3 +
-    (100 - m.stress) * 0.3 +
-    m.prep * 0.2 +
-    m.partner * 0.2;
-
   const lists = [
     ...(userData.items || []),
     ...(userData.bagMama || []),
     ...(userData.bagBaby || []),
-    ...(userData.bagPartner || []),
-    ...(userData.partnerTasks || [])
+    ...(userData.babyausstattung || []),
+    ...(userData.weights || [])
   ];
 
   const doneXP = lists.filter(x => x.done).length * 5;
 
-  const total = Math.round(base + doneXP);
+  const total = doneXP;
   const oldLevel = userData.metrics.level || 1;
 
   const level = Math.floor(total / 100) + 1;
@@ -668,48 +518,13 @@ function computeXP() {
 
   if (level > oldLevel) {
     playSound("sound-levelup");
-    launchConfetti();
   }
 
   renderAvatar(level);
 }
 
-/* Konfetti */
-function launchConfetti() {
-  const el = document.createElement("div");
-  el.style.position = "fixed";
-  el.style.inset = "0";
-  el.style.pointerEvents = "none";
-  el.style.zIndex = "9999";
-  el.innerHTML = `
-    <div style="
-      position:absolute;
-      top:50%;
-      left:50%;
-      transform:translate(-50%,-50%);
-      font-size:40px;
-      animation:pop 0.8s ease forwards;
-    ">🎉</div>
-  `;
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), 900);
-}
 /* ============================================================
-   GEBURTSTERMIN SPEICHERN
-   ============================================================ */
-
-function saveDueDate() {
-  const v = document.getElementById("dueDateInput").value;
-  if (!v) return;
-
-  userData.dueDate = v;
-  document.getElementById("dueDateDisplay").textContent = v;
-
-  saveData();
-  updateCountdown();
-}
-/* ============================================================
-   LISTEN-RENDERING
+   LISTEN
    ============================================================ */
 
 function renderList(key, containerId) {
@@ -748,73 +563,58 @@ function renderList(key, containerId) {
   });
 }
 
-/* ============================================================
-   RENDER ALL
-   ============================================================ */
+/* Babyausstattung */
+function addBabyStuff() {
+  const v = document.getElementById("babyStuffInput").value.trim();
+  if (!v) return;
+  playSound("sound-tap");
+  userData.babyausstattung.push({ text: v, done: false });
+  document.getElementById("babyStuffInput").value = "";
+  saveData();
+  renderBabyStuff();
+}
 
-function renderAll() {
-  document.getElementById("notesInput").value = userData.notes || "";
+function renderBabyStuff() {
+  renderList("babyausstattung", "babyStuffList");
+}
 
-  document.getElementById("energyInput").value = userData.metrics.energy;
-  document.getElementById("stressInput").value = userData.metrics.stress;
-  document.getElementById("prepInput").value = userData.metrics.prep;
-  document.getElementById("partnerInput").value = userData.metrics.partner;
-document.getElementById("dueDateDisplay").textContent = userData.dueDate || "–";
-document.getElementById("dueDateInput").value = userData.dueDate || "";
-  updateMetricLabel("energy");
-  updateMetricLabel("stress");
-  updateMetricLabel("prep");
-  updateMetricLabel("partner");
-
+/* To-do */
+function addItem() {
+  const v = document.getElementById("itemsInput").value.trim();
+  if (!v) return;
+  playSound("sound-tap");
+  userData.items.push({ text: v, done: false });
+  document.getElementById("itemsInput").value = "";
+  saveData();
   renderList("items", "itemsList");
-  renderList("bagMama", "bagMamaList");
-  renderList("bagBaby", "bagBabyList");
-  renderList("bagPartner", "bagPartnerList");
-  renderList("partnerTasks", "partnerTasksList");
-
-  renderWeights();
-  updateCountdown();
-  computeXP();
 }
 
-/* ============================================================
-   EINZELNE SAVE-FUNKTIONEN
-   ============================================================ */
-
-function saveNotes() {
-  userData.notes = document.getElementById("notesInput").value;
-  saveData();
-}
-
-function updateMetricLabel(key) {
+/* Kliniktasche */
+function addBagItem(key) {
   const map = {
-    energy: "energyInput",
-    stress: "stressInput",
-    prep: "prepInput",
-    partner: "partnerInput"
+    bagMama: "bagMamaInput",
+    bagBaby: "bagBabyInput"
   };
-  const labelMap = {
-    energy: "energyLabel",
-    stress: "stressLabel",
-    prep: "prepLabel",
-    partner: "partnerLabel"
-  };
-  const val = document.getElementById(map[key]).value;
-  document.getElementById(labelMap[key]).textContent = val;
-}
-
-function saveMetrics() {
-  userData.metrics.energy = Number(document.getElementById("energyInput").value);
-  userData.metrics.stress = Number(document.getElementById("stressInput").value);
-  userData.metrics.prep = Number(document.getElementById("prepInput").value);
-  userData.metrics.partner = Number(document.getElementById("partnerInput").value);
-  computeXP();
+  const v = document.getElementById(map[key]).value.trim();
+  if (!v) return;
+  playSound("sound-tap");
+  userData[key].push({ text: v, done: false });
+  document.getElementById(map[key]).value = "";
   saveData();
+  renderList(key, key + "List");
 }
 
-/* ============================================================
-   GEWICHT
-   ============================================================ */
+/* Gewicht */
+function addWeight() {
+  const d = document.getElementById("weightDate").value || new Date().toISOString().slice(0, 10);
+  const v = parseFloat(document.getElementById("weightValue").value);
+  if (isNaN(v)) return;
+
+  userData.weights.push({ date: d, value: v, done: true });
+  document.getElementById("weightValue").value = "";
+  saveData();
+  renderWeights();
+}
 
 function renderWeights() {
   const c = document.getElementById("weightList");
@@ -841,54 +641,33 @@ function renderWeights() {
   });
 }
 
-function addWeight() {
-  const d = document.getElementById("weightDate").value || new Date().toISOString().slice(0, 10);
-  const v = parseFloat(document.getElementById("weightValue").value);
-  if (isNaN(v)) return;
+/* ============================================================
+   NOTIZEN
+   ============================================================ */
 
-  userData.weights.push({ date: d, value: v });
-  document.getElementById("weightValue").value = "";
+function saveNotes() {
+  userData.notes = document.getElementById("notesInput").value;
   saveData();
-  renderWeights();
 }
 
 /* ============================================================
-   LISTEN-HINZUFÜGEN
+   RENDER ALL
    ============================================================ */
 
-function addItem() {
-  const v = document.getElementById("itemsInput").value.trim();
-  if (!v) return;
-  playSound("sound-tap");
-  userData.items.push({ text: v, done: false });
-  document.getElementById("itemsInput").value = "";
-  saveData();
+function renderAll() {
+  document.getElementById("notesInput").value = userData.notes || "";
+
+  document.getElementById("dueDateDisplay").textContent = userData.dueDate || "–";
+  document.getElementById("dueDateInput").value = userData.dueDate || "";
+
   renderList("items", "itemsList");
-}
+  renderList("bagMama", "bagMamaList");
+  renderList("bagBaby", "bagBabyList");
+  renderBabyStuff();
+  renderWeights();
 
-function addBagItem(key) {
-  const map = {
-    bagMama: "bagMamaInput",
-    bagBaby: "bagBabyInput",
-    bagPartner: "bagPartnerInput"
-  };
-  const v = document.getElementById(map[key]).value.trim();
-  if (!v) return;
-  playSound("sound-tap");
-  userData[key].push({ text: v, done: false });
-  document.getElementById(map[key]).value = "";
-  saveData();
-  renderList(key, key + "List");
-}
-
-function addPartnerTask() {
-  const v = document.getElementById("partnerTaskInput").value.trim();
-  if (!v) return;
-  playSound("sound-tap");
-  userData.partnerTasks.push({ text: v, done: false });
-  document.getElementById("partnerTaskInput").value = "";
-  saveData();
-  renderList("partnerTasks", "partnerTasksList");
+  updateCountdown();
+  computeXP();
 }
 
 /* ============================================================
