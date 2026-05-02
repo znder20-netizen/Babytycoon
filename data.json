@@ -2,10 +2,10 @@
   "dueDate": "2026-12-14",
   "metrics": {
     "energy": 70,
-    "stress": 43,
+    "stress": 41,
     "prep": 30,
     "partner": 80,
-    "score": 60
+    "score": 61
   },
   "notes": "",
   "weights": [],
