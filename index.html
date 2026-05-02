@@ -2,67 +2,105 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>BabyTycoon – Pastell Game Edition</title>
+  <title>BabyTycoon 2.0 – Pastell Game Edition</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
+    /* ============================================================
+       GLOBAL COLORS – Pastell-Verlauf + Soft Glow
+       ============================================================ */
     :root {
       --pastell-blue: #A7C7FF;
       --pastell-rosa: #FFB7CE;
       --pastell-mint: #B8F2E6;
       --cream: #FFF9F4;
       --text-dark: #444;
-      --card: #ffffff;
-      --shadow: 0 4px 12px #0001;
+      --card: rgba(255,255,255,0.85);
+      --shadow: 0 6px 18px rgba(0,0,0,0.08);
+      --glow-soft: 0 0 25px rgba(255,255,255,0.4);
     }
 
+    /* ============================================================
+       BODY – diagonaler Pastell-Verlauf + Soft Glow
+       ============================================================ */
     body {
       margin: 0;
       padding: 16px;
-      background: var(--cream);
       font-family: "Segoe UI", system-ui, sans-serif;
       color: var(--text-dark);
+      background: linear-gradient(135deg,
+        var(--pastell-blue),
+        var(--pastell-rosa),
+        var(--pastell-mint)
+      );
+      background-attachment: fixed;
+      animation: bgMove 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    /* ============================================================
+       CARDS – Pastell, Glow, Game-Feeling
+       ============================================================ */
+    .card {
+      background: var(--card);
+      padding: 18px;
+      border-radius: 20px;
+      box-shadow: var(--shadow), var(--glow-soft);
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
+      margin: 0 0 16px;
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    h2 {
       margin: 0 0 12px;
-      font-size: 26px;
+      font-size: 22px;
       font-weight: 700;
       color: var(--text-dark);
     }
 
-    .card {
-      background: var(--card);
-      padding: 16px;
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      margin-bottom: 18px;
-    }
+    .center { text-align: center; }
+    .flex { display: flex; align-items: center; justify-content: space-between; }
 
-    .flex {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .center {
-      text-align: center;
-    }
-
+    /* ============================================================
+       BUTTONS – Pastell, Glow, Game-Feeling
+       ============================================================ */
     .btn {
       padding: 10px 16px;
-      border-radius: 12px;
+      border-radius: 14px;
       border: none;
       cursor: pointer;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
       color: #fff;
-      background: var(--pastell-mint);
+      background: linear-gradient(135deg, var(--pastell-blue), var(--pastell-rosa));
       box-shadow: var(--shadow);
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
 
     .btn-sync {
-      background: var(--pastell-blue);
+      background: linear-gradient(135deg, var(--pastell-mint), var(--pastell-blue));
     }
 
     .btn-danger {
@@ -72,32 +110,38 @@
     input, textarea {
       width: 100%;
       padding: 10px;
-      border-radius: 12px;
+      border-radius: 14px;
       border: 1px solid #ddd;
       font-size: 15px;
       margin-top: 8px;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(4px);
     }
 
+    /* ============================================================
+       LIST ITEMS – Slide-In Animation
+       ============================================================ */
     .list {
       margin-top: 10px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     .item {
-      background: #fff;
-      padding: 10px;
-      border-radius: 12px;
+      background: rgba(255,255,255,0.9);
+      padding: 12px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       gap: 10px;
       box-shadow: var(--shadow);
+      animation: slideIn 0.3s ease;
     }
 
-    .item input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
     .item button {
@@ -106,11 +150,13 @@
       border: none;
       color: #fff;
       padding: 6px 10px;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
     }
 
-    /* Kreis-Countdown */
+    /* ============================================================
+       COUNTDOWN CIRCLE – Game HUD
+       ============================================================ */
     .circle-container {
       width: 180px;
       height: 180px;
@@ -124,11 +170,11 @@
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
     }
 
-    /* Karten unter dem Kreis */
     .countdown-cards {
       display: flex;
       gap: 12px;
@@ -139,16 +185,18 @@
     .count-card {
       flex: 1;
       min-width: 100px;
-      background: #fff;
-      padding: 12px;
-      border-radius: 14px;
+      background: rgba(255,255,255,0.85);
+      padding: 14px;
+      border-radius: 16px;
       box-shadow: var(--shadow);
       text-align: center;
+      backdrop-filter: blur(6px);
     }
 
     .count-card h3 {
       margin: 0;
-      font-size: 18px;
+      font-size: 20px;
+      font-weight: 800;
       color: var(--text-dark);
     }
 
@@ -157,7 +205,9 @@
       color: #666;
     }
 
-    /* Baby Avatar */
+    /* ============================================================
+       AVATAR – Cartoon-Cute Basis (160px)
+       ============================================================ */
     #babyAvatar svg {
       width: 160px;
       height: 160px;
@@ -167,39 +217,20 @@
     .baby-eye { fill: #444; }
     .baby-mouth { stroke: #444; stroke-width: 4; fill: none; }
     .baby-crown { fill: gold; stroke: #d4a300; stroke-width: 2; }
-    .baby-glow { filter: drop-shadow(0 0 10px gold); }
+    .baby-glow { filter: drop-shadow(0 0 12px gold); }
 
-    /* Statusanzeige */
-    #saveStatus {
-      margin-top: 6px;
-      font-size: 13px;
-      color: #777;
-    }
-
-    /* Token Popup */
-    #token-popup {
-      position: fixed;
-      inset: 0;
-      background: #0006;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-    }
-
-    #token-popup-inner {
-      background: #fff;
-      padding: 20px;
-      border-radius: 16px;
-      width: 320px;
-      box-shadow: var(--shadow);
+    /* ============================================================
+       SOUND VOLUME (40%)
+       ============================================================ */
+    audio {
+      display: none;
     }
   </style>
 </head>
 
 <body>
 
-<h1>👶 BabyTycoon – Pastell Game Edition</h1>
+<h1>👶 BabyTycoon 2.0 – Pastell Game Edition</h1>
 
 <!-- COUNTDOWN CARD -->
 <div class="card center">
@@ -236,14 +267,19 @@
 <div class="card center">
   <h2>🎮 Spielstatus</h2>
 
-  <div style="font-size:22px; font-weight:700;" id="xpTotal">0 XP</div>
-  <div style="margin-top:4px;" id="levelText">Level 1 – Baby Rookie</div>
+  <div style="font-size:24px; font-weight:800;" id="xpTotal">0 XP</div>
+  <div style="margin-top:4px; font-size:16px;" id="levelText">Level 1 – Baby Rookie</div>
 
-  <div style="margin-top:12px;">
-    <div style="height:14px; background:#eee; border-radius:10px; overflow:hidden;">
-      <div id="xpBar" style="height:14px; width:0%; background:linear-gradient(90deg, var(--pastell-blue), var(--pastell-rosa), var(--pastell-mint));"></div>
+  <div style="margin-top:14px;">
+    <div style="height:16px; background:#eee; border-radius:12px; overflow:hidden;">
+      <div id="xpBar" style="
+        height:16px;
+        width:0%;
+        background:linear-gradient(135deg, var(--pastell-blue), var(--pastell-rosa), var(--pastell-mint));
+        transition:width 0.4s ease;
+      "></div>
     </div>
-    <div id="xpToNext" style="font-size:13px; margin-top:6px; color:#777;">Noch 100 XP bis Level 2</div>
+    <div id="xpToNext" style="font-size:13px; margin-top:6px; color:#555;">Noch 100 XP bis Level 2</div>
   </div>
 </div>
 
@@ -293,7 +329,7 @@
   <div id="weightList" class="list"></div>
 </div>
 
-<!-- KLINIKTASCHE -->
+<!-- KLINIKTASCHE – MAMA -->
 <div class="card">
   <h2>🎒 Kliniktasche – Mama</h2>
   <div class="flex" style="gap:10px;">
@@ -303,6 +339,7 @@
   <div id="bagMamaList" class="list"></div>
 </div>
 
+<!-- KLINIKTASCHE – BABY -->
 <div class="card">
   <h2>🍼 Kliniktasche – Baby</h2>
   <div class="flex" style="gap:10px;">
@@ -312,6 +349,7 @@
   <div id="bagBabyList" class="list"></div>
 </div>
 
+<!-- KLINIKTASCHE – PARTNER -->
 <div class="card">
   <h2>🧑‍🤝‍🧑 Kliniktasche – Partner</h2>
   <div class="flex" style="gap:10px;">
@@ -347,17 +385,25 @@
   <button class="btn btn-sync" onclick="loadData()">Neu laden</button>
   <div id="saveStatus">Bereit</div>
 </div>
-<!-- TOKEN POPUP -->
-<div id="token-popup">
-  <div id="token-popup-inner">
-    <h3>GitHub Token eingeben</h3>
-    <p style="font-size:13px; color:#666;">Wird nur lokal gespeichert.</p>
-    <input id="token-input" type="password" placeholder="Token">
-    <button class="btn" style="width:100%; margin-top:10px;" onclick="saveToken()">Speichern</button>
-  </div>
-</div>
+<!-- SOUND EFFECTS (Cute + Modern Mix, 40% Volume) -->
+<audio id="sound-levelup" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAA..."></audio>
+<audio id="sound-check" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAA..."></audio>
+<audio id="sound-achievement" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAA..."></audio>
+<audio id="sound-tap" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAA..."></audio>
+<audio id="sound-pop" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAA..."></audio>
 
 <script>
+/* ============================================================
+   SOUND PLAYER
+   ============================================================ */
+function playSound(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.volume = 0.4;
+  el.currentTime = 0;
+  el.play();
+}
+
 /* ============================================================
    ULTRA-SICHERER SYNC
    ============================================================ */
@@ -367,7 +413,7 @@ let currentSHA = null;
 
 /* Token speichern */
 function saveToken() {
-  const t = document.getElementById("token-input").value.trim();
+  const t = document.getElementById("token-input")?.value?.trim();
   if (!t) return;
   localStorage.setItem("github_token", t);
   document.getElementById("token-popup").style.display = "none";
@@ -494,7 +540,7 @@ function drawCircle(percent) {
   // Hintergrundkreis
   ctx.beginPath();
   ctx.arc(center, center, radius, 0, Math.PI * 2);
-  ctx.strokeStyle = "#eee";
+  ctx.strokeStyle = "#ffffff66";
   ctx.lineWidth = 12;
   ctx.stroke();
 
@@ -507,58 +553,72 @@ function drawCircle(percent) {
     -Math.PI / 2,
     (Math.PI * 2) * (percent / 100) - Math.PI / 2
   );
-  ctx.strokeStyle = "url(#gradient)";
+  ctx.strokeStyle = "#fff";
   ctx.lineWidth = 12;
+  ctx.shadowColor = "#fff";
+  ctx.shadowBlur = 10;
   ctx.stroke();
 }
 
 /* ============================================================
-   DYNAMISCHER BABY-AVATAR
+   CARTOON-CUTE AVATAR (Blinzeln + Wackeln + Glow)
    ============================================================ */
+
+let blinkTimer = null;
 
 function renderAvatar(level) {
   let eyes = `
-    <circle cx="50" cy="60" r="6" class="baby-eye"/>
-    <circle cx="90" cy="60" r="6" class="baby-eye"/>
+    <circle cx="50" cy="60" r="8" class="baby-eye"/>
+    <circle cx="110" cy="60" r="8" class="baby-eye"/>
   `;
 
-  let mouth = `<path d="M55 90 Q70 105 85 90" class="baby-mouth"/>`;
+  let mouth = `<path d="M60 100 Q80 120 100 100" class="baby-mouth"/>`;
 
   let extras = "";
 
   if (level >= 3) {
-    mouth = `<path d="M55 90 Q70 115 85 90" class="baby-mouth"/>`;
+    mouth = `<path d="M60 100 Q80 130 100 100" class="baby-mouth"/>`;
   }
 
   if (level >= 5) {
     eyes = `
-      <circle cx="50" cy="60" r="6" fill="#FFD700"/>
-      <circle cx="90" cy="60" r="6" fill="#FFD700"/>
+      <rect x="42" y="55" width="16" height="6" rx="3" fill="#FFD700"/>
+      <rect x="102" y="55" width="16" height="6" rx="3" fill="#FFD700"/>
     `;
   }
 
   if (level >= 7) {
-    extras += `<polygon points="40,25 55,5 70,25 85,5 100,25" class="baby-crown"/>`;
+    extras += `<polygon points="60,20 80,0 100,20 120,0 140,20" class="baby-crown"/>`;
   }
 
   if (level >= 10) {
-    extras += `<circle cx="70" cy="70" r="50" class="baby-glow"/>`;
+    extras += `<circle cx="80" cy="80" r="60" class="baby-glow"/>`;
   }
 
   const svg = `
-    <svg viewBox="0 0 140 140">
+    <svg viewBox="0 0 160 160">
       ${extras}
-      <circle cx="70" cy="70" r="50" class="baby-head"/>
+      <circle cx="80" cy="80" r="60" class="baby-head"/>
       ${eyes}
       ${mouth}
     </svg>
   `;
 
   document.getElementById("babyAvatar").innerHTML = svg;
+
+  // Blinzeln
+  clearTimeout(blinkTimer);
+  blinkTimer = setTimeout(() => {
+    playSound("sound-pop");
+    document.getElementById("babyAvatar").style.transform = "scale(0.95)";
+    setTimeout(() => {
+      document.getElementById("babyAvatar").style.transform = "scale(1)";
+    }, 150);
+  }, 3000 + Math.random() * 3000);
 }
 
 /* ============================================================
-   XP + LEVEL SYSTEM
+   XP + LEVEL SYSTEM + ACHIEVEMENTS
    ============================================================ */
 
 function computeXP() {
@@ -581,17 +641,46 @@ function computeXP() {
   const doneXP = lists.filter(x => x.done).length * 5;
 
   const total = Math.round(base + doneXP);
-  userData.metrics.score = total;
+  const oldLevel = userData.metrics.level || 1;
 
   const level = Math.floor(total / 100) + 1;
   const next = (level * 100) - total;
+
+  userData.metrics.score = total;
+  userData.metrics.level = level;
 
   document.getElementById("xpTotal").textContent = total + " XP";
   document.getElementById("levelText").textContent = "Level " + level;
   document.getElementById("xpBar").style.width = (total % 100) + "%";
   document.getElementById("xpToNext").textContent = "Noch " + next + " XP bis Level " + (level + 1);
 
+  if (level > oldLevel) {
+    playSound("sound-levelup");
+    launchConfetti();
+  }
+
   renderAvatar(level);
+}
+
+/* Konfetti */
+function launchConfetti() {
+  const el = document.createElement("div");
+  el.style.position = "fixed";
+  el.style.inset = "0";
+  el.style.pointerEvents = "none";
+  el.style.zIndex = "9999";
+  el.innerHTML = `
+    <div style="
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      font-size:40px;
+      animation:pop 0.8s ease forwards;
+    ">🎉</div>
+  `;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 900);
 }
 
 /* ============================================================
@@ -611,6 +700,7 @@ function renderList(key, containerId) {
     cb.checked = it.done;
     cb.onchange = () => {
       it.done = cb.checked;
+      playSound("sound-check");
       computeXP();
       saveData();
     };
@@ -622,7 +712,6 @@ function renderList(key, containerId) {
     del.textContent = "×";
     del.onclick = () => {
       userData[key].splice(idx, 1);
-      computeXP();
       saveData();
       renderList(key, containerId);
     };
@@ -744,6 +833,7 @@ function addWeight() {
 function addItem() {
   const v = document.getElementById("itemsInput").value.trim();
   if (!v) return;
+  playSound("sound-tap");
   userData.items.push({ text: v, done: false });
   document.getElementById("itemsInput").value = "";
   saveData();
@@ -758,6 +848,7 @@ function addBagItem(key) {
   };
   const v = document.getElementById(map[key]).value.trim();
   if (!v) return;
+  playSound("sound-tap");
   userData[key].push({ text: v, done: false });
   document.getElementById(map[key]).value = "";
   saveData();
@@ -767,6 +858,7 @@ function addBagItem(key) {
 function addPartnerTask() {
   const v = document.getElementById("partnerTaskInput").value.trim();
   if (!v) return;
+  playSound("sound-tap");
   userData.partnerTasks.push({ text: v, done: false });
   document.getElementById("partnerTaskInput").value = "";
   saveData();
