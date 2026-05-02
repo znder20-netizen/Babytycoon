@@ -1,86 +1,258 @@
 {
-  "dueDate": null,
+  "dueDate": "2026-12-14",
   "metrics": {
     "energy": 70,
     "stress": 20,
     "prep": 30,
     "partner": 80,
-    "score": 0
+    "score": 67
   },
   "notes": "",
   "weights": [],
-
   "bagMama": [
-    { "text": "Bequeme Kleidung", "done": false },
-    { "text": "Still-BH", "done": false },
-    { "text": "Still-Einlagen", "done": false },
-    { "text": "Haargummi", "done": false },
-    { "text": "Duschgel & Shampoo", "done": false },
-    { "text": "Zahnbürste & Zahnpasta", "done": false },
-    { "text": "Lippenpflege", "done": false },
-    { "text": "Handy-Ladekabel", "done": false },
-    { "text": "Snacks", "done": false },
-    { "text": "Wasserflasche", "done": false },
-    { "text": "Hausschuhe", "done": false },
-    { "text": "Socken", "done": false },
-    { "text": "Unterwäsche", "done": false },
-    { "text": "Bademantel", "done": false },
-    { "text": "Geburtsplan", "done": false },
-    { "text": "Mutterpass", "done": false },
-    { "text": "Versichertenkarte", "done": false }
+    {
+      "text": "Bequeme Kleidung",
+      "done": false
+    },
+    {
+      "text": "Still-BH",
+      "done": false
+    },
+    {
+      "text": "Still-Einlagen",
+      "done": false
+    },
+    {
+      "text": "Haargummi",
+      "done": false
+    },
+    {
+      "text": "Duschgel & Shampoo",
+      "done": false
+    },
+    {
+      "text": "Zahnbürste & Zahnpasta",
+      "done": false
+    },
+    {
+      "text": "Lippenpflege",
+      "done": false
+    },
+    {
+      "text": "Handy-Ladekabel",
+      "done": false
+    },
+    {
+      "text": "Snacks",
+      "done": false
+    },
+    {
+      "text": "Wasserflasche",
+      "done": false
+    },
+    {
+      "text": "Hausschuhe",
+      "done": false
+    },
+    {
+      "text": "Socken",
+      "done": false
+    },
+    {
+      "text": "Unterwäsche",
+      "done": false
+    },
+    {
+      "text": "Bademantel",
+      "done": false
+    },
+    {
+      "text": "Geburtsplan",
+      "done": false
+    },
+    {
+      "text": "Mutterpass",
+      "done": false
+    },
+    {
+      "text": "Versichertenkarte",
+      "done": false
+    }
   ],
-
   "bagBaby": [
-    { "text": "2–3 Bodys", "done": false },
-    { "text": "2–3 Strampler", "done": false },
-    { "text": "Mütze", "done": false },
-    { "text": "Socken", "done": false },
-    { "text": "Decke", "done": false },
-    { "text": "Spucktücher", "done": false },
-    { "text": "Windeln", "done": false },
-    { "text": "Feuchttücher", "done": false },
-    { "text": "Babydecke", "done": false },
-    { "text": "Autositz / Babyschale", "done": false }
+    {
+      "text": "2–3 Bodys",
+      "done": false
+    },
+    {
+      "text": "2–3 Strampler",
+      "done": false
+    },
+    {
+      "text": "Mütze",
+      "done": false
+    },
+    {
+      "text": "Socken",
+      "done": false
+    },
+    {
+      "text": "Decke",
+      "done": false
+    },
+    {
+      "text": "Spucktücher",
+      "done": false
+    },
+    {
+      "text": "Windeln",
+      "done": false
+    },
+    {
+      "text": "Feuchttücher",
+      "done": false
+    },
+    {
+      "text": "Babydecke",
+      "done": false
+    },
+    {
+      "text": "Autositz / Babyschale",
+      "done": false
+    }
   ],
-
   "bagPartner": [
-    { "text": "Handy-Ladekabel", "done": false },
-    { "text": "Powerbank", "done": false },
-    { "text": "Snacks", "done": false },
-    { "text": "Wasser", "done": false },
-    { "text": "Wechselshirt", "done": false },
-    { "text": "Decke / Hoodie", "done": false },
-    { "text": "Dokumente", "done": false },
-    { "text": "Geld / EC-Karte", "done": false },
-    { "text": "Notizblock", "done": false },
-    { "text": "Kopfhörer", "done": false }
+    {
+      "text": "Handy-Ladekabel",
+      "done": false
+    },
+    {
+      "text": "Powerbank",
+      "done": false
+    },
+    {
+      "text": "Snacks",
+      "done": false
+    },
+    {
+      "text": "Wasser",
+      "done": false
+    },
+    {
+      "text": "Wechselshirt",
+      "done": false
+    },
+    {
+      "text": "Decke / Hoodie",
+      "done": false
+    },
+    {
+      "text": "Dokumente",
+      "done": false
+    },
+    {
+      "text": "Geld / EC-Karte",
+      "done": false
+    },
+    {
+      "text": "Notizblock",
+      "done": false
+    },
+    {
+      "text": "Kopfhörer",
+      "done": false
+    }
   ],
-
   "items": [
-    { "text": "Hebamme kontaktieren", "done": false },
-    { "text": "Geburtsvorbereitungskurs buchen", "done": false },
-    { "text": "Kliniktasche packen", "done": false },
-    { "text": "Kinderarzt auswählen", "done": false },
-    { "text": "Krankenhaus anmelden", "done": false },
-    { "text": "Elterngeld informieren", "done": false },
-    { "text": "Mutterschutz planen", "done": false },
-    { "text": "Kinderzimmer vorbereiten", "done": false },
-    { "text": "Kinderwagen auswählen", "done": false },
-    { "text": "Babyschale testen", "done": false },
-    { "text": "Wickelplatz einrichten", "done": false },
-    { "text": "Erste Kleidung waschen", "done": false }
+    {
+      "text": "Hebamme kontaktieren",
+      "done": false
+    },
+    {
+      "text": "Geburtsvorbereitungskurs buchen",
+      "done": false
+    },
+    {
+      "text": "Kliniktasche packen",
+      "done": false
+    },
+    {
+      "text": "Kinderarzt auswählen",
+      "done": false
+    },
+    {
+      "text": "Krankenhaus anmelden",
+      "done": false
+    },
+    {
+      "text": "Elterngeld informieren",
+      "done": false
+    },
+    {
+      "text": "Mutterschutz planen",
+      "done": false
+    },
+    {
+      "text": "Kinderzimmer vorbereiten",
+      "done": false
+    },
+    {
+      "text": "Kinderwagen auswählen",
+      "done": false
+    },
+    {
+      "text": "Babyschale testen",
+      "done": false
+    },
+    {
+      "text": "Wickelplatz einrichten",
+      "done": false
+    },
+    {
+      "text": "Erste Kleidung waschen",
+      "done": false
+    }
   ],
-
   "partnerTasks": [
-    { "text": "Kliniktasche tragen & checken", "done": false },
-    { "text": "Auto tanken / sauber machen", "done": false },
-    { "text": "Babyschale einbauen", "done": false },
-    { "text": "Krankenhausroute testen", "done": false },
-    { "text": "Notfallnummern speichern", "done": false },
-    { "text": "Wochenbett-Plan erstellen", "done": false },
-    { "text": "Einkaufsliste für die ersten 7 Tage", "done": false },
-    { "text": "Wohnung vorbereiten", "done": false },
-    { "text": "Müll rausbringen (regelmäßig)", "done": false },
-    { "text": "Termine koordinieren", "done": false }
+    {
+      "text": "Kliniktasche tragen & checken",
+      "done": false
+    },
+    {
+      "text": "Auto tanken / sauber machen",
+      "done": false
+    },
+    {
+      "text": "Babyschale einbauen",
+      "done": false
+    },
+    {
+      "text": "Krankenhausroute testen",
+      "done": false
+    },
+    {
+      "text": "Notfallnummern speichern",
+      "done": false
+    },
+    {
+      "text": "Wochenbett-Plan erstellen",
+      "done": false
+    },
+    {
+      "text": "Einkaufsliste für die ersten 7 Tage",
+      "done": false
+    },
+    {
+      "text": "Wohnung vorbereiten",
+      "done": false
+    },
+    {
+      "text": "Müll rausbringen (regelmäßig)",
+      "done": false
+    },
+    {
+      "text": "Termine koordinieren",
+      "done": false
+    }
   ]
 }
