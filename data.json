@@ -1,0 +1,18 @@
+{
+  "dueDate": null,
+  "metrics": {
+    "energy": 70,
+    "stress": 20,
+    "prep": 30,
+    "partner": 80,
+    "score": 40
+  },
+  "terms": [],
+  "items": [],
+  "bagMama": [],
+  "bagBaby": [],
+  "bagPartner": [],
+  "partnerTasks": [],
+  "notes": "",
+  "weights": []
+}
