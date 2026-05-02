@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Babytycoon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    h1 { margin-top: 0; }
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px #0002;
+    }
+    input, button, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover { background: #45a049; }
+  </style>
+</head>
+
+<body>
+
+<h1>👶 Babytycoon</h1>
+
+<div class="card">
+  <h3>ET eingeben</h3>
+  <input type="date" id="dueDateInput">
+  <button onclick="saveDueDate()">Speichern</button>
+</div>
+
+<div class="card">
+  <h3>Notizen</h3>
+  <textarea id="notesInput" rows="5"></textarea>
+  <button onclick="saveNotes()">Speichern</button>
+</div>
+
+<div class="card">
+  <h3>Energie</h3>
+  <input type="range" min="0" max="100" id="energyInput">
+  <button onclick="saveEnergy()">Speichern</button>
+</div>
+
+<div class="card">
+  <h3>Stress</h3>
+  <input type="range" min="0" max="100" id="stressInput">
+  <button onclick="saveStress()">Speichern</button>
+</div>
+
+<!-- TOKEN POPUP -->
+<div id="token-popup" style="
+  position:fixed; inset:0; background:#0008;
+  display:flex; align-items:center; justify-content:center;">
+  <div style="background:#fff; padding:20px; border-radius:10px; width:300px;">
+    <h3>GitHub Token eingeben</h3>
+    <input id="token-input" type="password" placeholder="Token">
+    <button onclick="saveToken()">Speichern</button>
+  </div>
+</div>
+
+<script>
+let userData = {};
+let currentSHA = null;
+
+/* ---------------------------
+   TOKEN HANDLING
+---------------------------- */
+function saveToken() {
+  const t = document.getElementById("token-input").value.trim();
+  if (!t) return;
+  localStorage.setItem("github_token", t);
+  document.getElementById("token-popup").style.display = "none";
+  loadData();
+}
+
+if (!localStorage.getItem("github_token")) {
+  document.getElementById("token-popup").style.display = "flex";
+} else {
+  document.getElementById("token-popup").style.display = "none";
+}
+
+/* ---------------------------
+   LOAD DATA FROM GITHUB
+---------------------------- */
+async function loadData() {
+  const token = localStorage.getItem("github_token");
+  if (!token) return;
+
+  const res = await fetch(
+    "https://api.github.com/repos/znder20-netizen/Babytycoon/contents/data.json",
+    { headers: { Authorization: "token " + token } }
+  );
+
+  const json = await res.json();
+  currentSHA = json.sha;
+
+  userData = JSON.parse(atob(json.content));
+
+  renderAll();
+}
+
+/* ---------------------------
+   SAVE DATA TO GITHUB
+---------------------------- */
+async function saveData() {
+  const token = localStorage.getItem("github_token");
+  if (!token) return;
+
+  const body = {
+    message: "update",
+    content: btoa(JSON.stringify(userData, null, 2)),
+    sha: currentSHA
+  };
+
+  const res = await fetch(
+    "https://api.github.com/repos/znder20-netizen/Babytycoon/contents/data.json",
+    {
+      method: "PUT",
+      headers: {
+        Authorization: "token " + token,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    }
+  );
+
+  const json = await res.json();
+  currentSHA = json.content.sha;
+}
+
+/* ---------------------------
+   UI RENDERING
+---------------------------- */
+function renderAll() {
+  document.getElementById("dueDateInput").value = userData.dueDate || "";
+  document.getElementById("notesInput").value = userData.notes || "";
+  document.getElementById("energyInput").value = userData.metrics.energy;
+  document.getElementById("stressInput").value = userData.metrics.stress;
+}
+
+/* ---------------------------
+   SAVE FUNCTIONS
+---------------------------- */
+function saveDueDate() {
+  userData.dueDate = document.getElementById("dueDateInput").value;
+  saveData();
+}
+
+function saveNotes() {
+  userData.notes = document.getElementById("notesInput").value;
+  saveData();
+}
+
+function saveEnergy() {
+  userData.metrics.energy = Number(document.getElementById("energyInput").value);
+  saveData();
+}
+
+function saveStress() {
+  userData.metrics.stress = Number(document.getElementById("stressInput").value);
+  saveData();
+}
+
+/* ---------------------------
+   AUTO SYNC
+---------------------------- */
+setInterval(loadData, 5000);
+
+loadData();
+</script>
+
+</body>
+</html>
