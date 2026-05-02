@@ -256,7 +256,19 @@
     </div>
   </div>
 </div>
+<!-- GEBURTSTERMIN EINTRAGEN -->
+<div class="card">
+  <h2>📅 Geburtstermin</h2>
 
+  <div class="flex" style="gap:10px;">
+    <input type="date" id="dueDateInput" onchange="saveDueDate()">
+    <button class="btn" onclick="saveDueDate()">Speichern</button>
+  </div>
+
+  <div style="margin-top:8px; font-size:14px; color:#555;">
+    Aktueller ET: <span id="dueDateDisplay">–</span>
+  </div>
+</div>
 <!-- BABY AVATAR -->
 <div class="card center">
   <h2>👶 Baby Avatar</h2>
@@ -682,7 +694,20 @@ function launchConfetti() {
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 900);
 }
+/* ============================================================
+   GEBURTSTERMIN SPEICHERN
+   ============================================================ */
 
+function saveDueDate() {
+  const v = document.getElementById("dueDateInput").value;
+  if (!v) return;
+
+  userData.dueDate = v;
+  document.getElementById("dueDateDisplay").textContent = v;
+
+  saveData();
+  updateCountdown();
+}
 /* ============================================================
    LISTEN-RENDERING
    ============================================================ */
@@ -734,7 +759,8 @@ function renderAll() {
   document.getElementById("stressInput").value = userData.metrics.stress;
   document.getElementById("prepInput").value = userData.metrics.prep;
   document.getElementById("partnerInput").value = userData.metrics.partner;
-
+document.getElementById("dueDateDisplay").textContent = userData.dueDate || "–";
+document.getElementById("dueDateInput").value = userData.dueDate || "";
   updateMetricLabel("energy");
   updateMetricLabel("stress");
   updateMetricLabel("prep");
