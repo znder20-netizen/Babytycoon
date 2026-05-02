@@ -6,84 +6,391 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
+    :root {
+      --primary:#4C6FFF;
+      --accent:#FF7A7A;
+      --bg:#f5f5f8;
+      --card:#ffffff;
+    }
+    * { box-sizing:border-box; }
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background: #f5f5f5;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin:0;
+      padding:16px;
+      background:var(--bg);
+      color:#222;
     }
-    h1 { margin-top: 0; }
+    h1 { margin:0 0 12px; }
+    h2 { margin:0 0 8px; font-size:18px; }
+    h3 { margin:0 0 8px; font-size:16px; }
+    .grid {
+      display:grid;
+      gap:12px;
+    }
+    @media (min-width:900px) {
+      .grid-2 {
+        grid-template-columns:1.2fr 1fr;
+      }
+    }
     .card {
-      background: white;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 5px #0002;
+      background:var(--card);
+      padding:14px 14px 16px;
+      border-radius:12px;
+      box-shadow:0 2px 6px #0001;
     }
-    input, button, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
+    .row {
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
     }
+    label { font-size:13px; color:#555; }
+    input, textarea, select {
+      width:100%;
+      padding:8px 10px;
+      border-radius:8px;
+      border:1px solid #d0d0dd;
+      font-size:14px;
+      font-family:inherit;
+    }
+    textarea { resize:vertical; min-height:80px; }
     button {
-      background: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
+      border:none;
+      border-radius:999px;
+      padding:8px 14px;
+      font-size:14px;
+      cursor:pointer;
+      background:var(--primary);
+      color:#fff;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
     }
-    button:hover { background: #45a049; }
+    button.secondary {
+      background:#e4e6f0;
+      color:#333;
+    }
+    button.danger {
+      background:#ff4b4b;
+    }
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:#f0f1ff;
+      font-size:12px;
+    }
+    .range-row {
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .range-row span {
+      width:32px;
+      text-align:right;
+      font-variant-numeric:tabular-nums;
+      font-size:13px;
+    }
+    input[type="range"] {
+      flex:1;
+    }
+    .badge {
+      display:inline-block;
+      padding:3px 8px;
+      border-radius:999px;
+      font-size:11px;
+      background:#f0f1ff;
+      color:#333;
+    }
+    .list {
+      margin-top:8px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      max-height:220px;
+      overflow:auto;
+    }
+    .item-row {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 8px;
+      border-radius:8px;
+      background:#f7f7ff;
+      font-size:13px;
+    }
+    .item-row input[type="checkbox"] {
+      width:auto;
+    }
+    .item-row span.text {
+      flex:1;
+    }
+    .item-row button {
+      padding:4px 8px;
+      font-size:11px;
+    }
+    .small-input {
+      width:80px;
+    }
+    .muted {
+      font-size:12px;
+      color:#777;
+    }
+    .score-big {
+      font-size:26px;
+      font-weight:600;
+    }
+    .score-sub {
+      font-size:13px;
+      color:#555;
+    }
+    .tag {
+      font-size:11px;
+      padding:3px 7px;
+      border-radius:999px;
+      background:#eef2ff;
+      margin-right:4px;
+    }
+    .flex-between {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .chip {
+      padding:4px 10px;
+      border-radius:999px;
+      background:#f3f3f8;
+      font-size:12px;
+    }
+    .weight-row {
+      display:flex;
+      gap:6px;
+      align-items:center;
+      font-size:13px;
+    }
+    .weight-row span {
+      flex:1;
+    }
+    .weight-row button {
+      padding:3px 8px;
+      font-size:11px;
+    }
+    .section-title {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+    }
+
+    /* Token Popup */
+    #token-popup {
+      position:fixed;
+      inset:0;
+      background:#0007;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:1000;
+    }
+    #token-popup-inner {
+      background:#fff;
+      padding:18px;
+      border-radius:12px;
+      width:320px;
+      max-width:90vw;
+      box-shadow:0 4px 16px #0003;
+    }
+    #token-popup-inner h3 {
+      margin-top:0;
+      margin-bottom:8px;
+    }
   </style>
 </head>
-
 <body>
 
 <h1>👶 Babytycoon</h1>
+<div class="muted">Gemeinsames Baby‑Spiel für euch zwei – alles synchronisiert, alles editierbar.</div>
 
-<div class="card">
-  <h3>ET eingeben</h3>
-  <input type="date" id="dueDateInput">
-  <button onclick="saveDueDate()">Speichern</button>
-</div>
+<div class="grid grid-2" style="margin-top:14px;">
 
-<div class="card">
-  <h3>Notizen</h3>
-  <textarea id="notesInput" rows="5"></textarea>
-  <button onclick="saveNotes()">Speichern</button>
-</div>
+  <!-- LINKER BEREICH -->
+  <div class="grid" style="align-content:flex-start;">
 
-<div class="card">
-  <h3>Energie</h3>
-  <input type="range" min="0" max="100" id="energyInput">
-  <button onclick="saveEnergy()">Speichern</button>
-</div>
+    <!-- ET + SPIELSTAND -->
+    <div class="card">
+      <div class="section-title">
+        <h2>ET & Spielstand</h2>
+        <span class="badge" id="weekInfo">SSW –</span>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <div style="flex:1;">
+          <label>Entbindungstermin</label>
+          <input type="date" id="dueDateInput" onchange="saveDueDate()">
+        </div>
+        <div style="flex:1;">
+          <label>Heutiges Datum</label>
+          <input type="date" id="todayInput">
+        </div>
+      </div>
+      <div style="margin-top:10px;" class="flex-between">
+        <div>
+          <div class="score-big" id="scoreTotal">0 XP</div>
+          <div class="score-sub" id="scoreLevel">Level 1 – Baby‑Rookie</div>
+        </div>
+        <div>
+          <div class="chip" id="scoreDetailsMain">Werte + Aufgaben</div>
+          <div class="muted" id="scoreDetailsSub">Noch 0 XP bis Level 2</div>
+        </div>
+      </div>
+    </div>
 
-<div class="card">
-  <h3>Stress</h3>
-  <input type="range" min="0" max="100" id="stressInput">
-  <button onclick="saveStress()">Speichern</button>
+    <!-- METRIKEN -->
+    <div class="card">
+      <h2>Werte</h2>
+      <div class="range-row">
+        <label style="width:80px;">Energie</label>
+        <input type="range" min="0" max="100" id="energyInput" oninput="updateMetricLabel('energy')" onchange="saveMetrics()">
+        <span id="energyLabel">0</span>
+      </div>
+      <div class="range-row">
+        <label style="width:80px;">Stress</label>
+        <input type="range" min="0" max="100" id="stressInput" oninput="updateMetricLabel('stress')" onchange="saveMetrics()">
+        <span id="stressLabel">0</span>
+      </div>
+      <div class="range-row">
+        <label style="width:80px;">Vorbereitung</label>
+        <input type="range" min="0" max="100" id="prepInput" oninput="updateMetricLabel('prep')" onchange="saveMetrics()">
+        <span id="prepLabel">0</span>
+      </div>
+      <div class="range-row">
+        <label style="width:80px;">Partner‑Support</label>
+        <input type="range" min="0" max="100" id="partnerInput" oninput="updateMetricLabel('partner')" onchange="saveMetrics()">
+        <span id="partnerLabel">0</span>
+      </div>
+      <div class="muted" style="margin-top:6px;">
+        Diese Werte fließen direkt in euren Spiel‑Score ein.
+      </div>
+    </div>
+
+    <!-- NOTIZEN -->
+    <div class="card">
+      <div class="section-title">
+        <h2>Notizen</h2>
+        <span class="badge">Gedanken, Fragen, To‑dos</span>
+      </div>
+      <textarea id="notesInput" rows="5" onblur="saveNotes()"></textarea>
+      <div class="muted">Speichert automatisch beim Verlassen des Feldes.</div>
+    </div>
+
+    <!-- GEWICHT -->
+    <div class="card">
+      <div class="section-title">
+        <h2>Gewicht</h2>
+        <span class="badge">Verlauf</span>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <input type="date" id="weightDate">
+        <input type="number" step="0.1" placeholder="kg" id="weightValue">
+        <button onclick="addWeight()">+ Eintrag</button>
+      </div>
+      <div class="list" id="weightList"></div>
+    </div>
+
+  </div>
+
+  <!-- RECHTER BEREICH -->
+  <div class="grid" style="align-content:flex-start;">
+
+    <!-- KLINIKTASCHE -->
+    <div class="card">
+      <div class="section-title">
+        <h2>Kliniktasche</h2>
+        <span class="badge">Mama · Baby · Partner</span>
+      </div>
+
+      <h3 style="margin-top:8px;">Mama</h3>
+      <div class="row">
+        <input id="bagMamaInput" placeholder="Neuer Eintrag">
+        <button class="secondary" onclick="addBagItem('bagMama')">+ Hinzufügen</button>
+      </div>
+      <div class="list" id="bagMamaList"></div>
+
+      <h3 style="margin-top:12px;">Baby</h3>
+      <div class="row">
+        <input id="bagBabyInput" placeholder="Neuer Eintrag">
+        <button class="secondary" onclick="addBagItem('bagBaby')">+ Hinzufügen</button>
+      </div>
+      <div class="list" id="bagBabyList"></div>
+
+      <h3 style="margin-top:12px;">Partner</h3>
+      <div class="row">
+        <input id="bagPartnerInput" placeholder="Neuer Eintrag">
+        <button class="secondary" onclick="addBagItem('bagPartner')">+ Hinzufügen</button>
+      </div>
+      <div class="list" id="bagPartnerList"></div>
+    </div>
+
+    <!-- ALLGEMEINE LISTE -->
+    <div class="card">
+      <div class="section-title">
+        <h2>To‑do Liste</h2>
+        <span class="badge">Allgemein</span>
+      </div>
+      <div class="row">
+        <input id="itemsInput" placeholder="Neuer Punkt">
+        <button class="secondary" onclick="addItem()">+ Hinzufügen</button>
+      </div>
+      <div class="list" id="itemsList"></div>
+    </div>
+
+    <!-- PARTNER‑TASKS -->
+    <div class="card">
+      <div class="section-title">
+        <h2>Partner‑Tasks</h2>
+        <span class="badge">XP‑Booster</span>
+      </div>
+      <div class="row">
+        <input id="partnerTaskInput" placeholder="z.B. Kliniktasche packen, Hebamme anrufen …">
+        <button class="secondary" onclick="addPartnerTask()">+ Hinzufügen</button>
+      </div>
+      <div class="list" id="partnerTasksList"></div>
+      <div class="muted">Erledigte Partner‑Tasks geben extra XP im Spielsystem.</div>
+    </div>
+
+  </div>
 </div>
 
 <!-- TOKEN POPUP -->
-<div id="token-popup" style="
-  position:fixed; inset:0; background:#0008;
-  display:flex; align-items:center; justify-content:center;">
-  <div style="background:#fff; padding:20px; border-radius:10px; width:300px;">
+<div id="token-popup">
+  <div id="token-popup-inner">
     <h3>GitHub Token eingeben</h3>
+    <div class="muted" style="margin-bottom:6px;">
+      Persönlicher Token mit Repo‑Rechten für <b>Babytycoon</b>. Wird nur lokal gespeichert.
+    </div>
     <input id="token-input" type="password" placeholder="Token">
-    <button onclick="saveToken()">Speichern</button>
+    <button style="margin-top:10px; width:100%;" onclick="saveToken()">Speichern</button>
   </div>
 </div>
 
 <script>
-let userData = {};
+let userData = {
+  dueDate: null,
+  metrics: { energy:70, stress:20, prep:30, partner:80, score:0 },
+  items: [],
+  bagMama: [],
+  bagBaby: [],
+  bagPartner: [],
+  partnerTasks: [],
+  notes: "",
+  weights: []
+};
 let currentSHA = null;
 
-/* ---------------------------
-   TOKEN HANDLING
----------------------------- */
+/* TOKEN */
 function saveToken() {
   const t = document.getElementById("token-input").value.trim();
   if (!t) return;
@@ -91,100 +398,322 @@ function saveToken() {
   document.getElementById("token-popup").style.display = "none";
   loadData();
 }
-
 if (!localStorage.getItem("github_token")) {
   document.getElementById("token-popup").style.display = "flex";
 } else {
   document.getElementById("token-popup").style.display = "none";
 }
 
-/* ---------------------------
-   LOAD DATA FROM GITHUB
----------------------------- */
+/* GITHUB LOAD */
 async function loadData() {
   const token = localStorage.getItem("github_token");
   if (!token) return;
-
-  const res = await fetch(
-    "https://api.github.com/repos/znder20-netizen/Babytycoon/contents/data.json",
-    { headers: { Authorization: "token " + token } }
-  );
-
-  const json = await res.json();
-  currentSHA = json.sha;
-
-  userData = JSON.parse(atob(json.content));
-
-  renderAll();
+  try {
+    const res = await fetch(
+      "https://api.github.com/repos/znder20-netizen/Babytycoon/contents/data.json",
+      { headers:{ Authorization:"token " + token } }
+    );
+    if (!res.ok) return;
+    const json = await res.json();
+    currentSHA = json.sha;
+    userData = JSON.parse(atob(json.content));
+    renderAll();
+  } catch(e) {
+    console.error(e);
+  }
 }
 
-/* ---------------------------
-   SAVE DATA TO GITHUB
----------------------------- */
+/* GITHUB SAVE */
 async function saveData() {
   const token = localStorage.getItem("github_token");
-  if (!token) return;
-
-  const body = {
-    message: "update",
-    content: btoa(JSON.stringify(userData, null, 2)),
-    sha: currentSHA
-  };
-
-  const res = await fetch(
-    "https://api.github.com/repos/znder20-netizen/Babytycoon/contents/data.json",
-    {
-      method: "PUT",
-      headers: {
-        Authorization: "token " + token,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(body)
-    }
-  );
-
-  const json = await res.json();
-  currentSHA = json.content.sha;
+  if (!token || !currentSHA) return;
+  try {
+    const body = {
+      message: "update",
+      content: btoa(JSON.stringify(userData, null, 2)),
+      sha: currentSHA
+    };
+    const res = await fetch(
+      "https://api.github.com/repos/znder20-netizen/Babytycoon/contents/data.json",
+      {
+        method:"PUT",
+        headers:{
+          Authorization:"token " + token,
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify(body)
+      }
+    );
+    if (!res.ok) return;
+    const json = await res.json();
+    currentSHA = json.content.sha;
+    computeScore();
+  } catch(e) {
+    console.error(e);
+  }
 }
 
-/* ---------------------------
-   UI RENDERING
----------------------------- */
+/* RENDER */
 function renderAll() {
   document.getElementById("dueDateInput").value = userData.dueDate || "";
   document.getElementById("notesInput").value = userData.notes || "";
-  document.getElementById("energyInput").value = userData.metrics.energy;
-  document.getElementById("stressInput").value = userData.metrics.stress;
+  document.getElementById("energyInput").value = userData.metrics.energy ?? 0;
+  document.getElementById("stressInput").value = userData.metrics.stress ?? 0;
+  document.getElementById("prepInput").value = userData.metrics.prep ?? 0;
+  document.getElementById("partnerInput").value = userData.metrics.partner ?? 0;
+  updateMetricLabel("energy");
+  updateMetricLabel("stress");
+  updateMetricLabel("prep");
+  updateMetricLabel("partner");
+  renderItems();
+  renderBags();
+  renderPartnerTasks();
+  renderWeights();
+  renderWeeks();
+  computeScore();
 }
 
-/* ---------------------------
-   SAVE FUNCTIONS
----------------------------- */
-function saveDueDate() {
-  userData.dueDate = document.getElementById("dueDateInput").value;
+function renderWeeks() {
+  const due = userData.dueDate;
+  const todayStr = document.getElementById("todayInput").value || new Date().toISOString().slice(0,10);
+  document.getElementById("todayInput").value = todayStr;
+  if (!due) {
+    document.getElementById("weekInfo").textContent = "SSW –";
+    return;
+  }
+  const dDue = new Date(due);
+  const dToday = new Date(todayStr);
+  const diffMs = dDue - dToday;
+  const totalWeeks = 40;
+  const passedWeeks = totalWeeks - (diffMs / (1000*60*60*24*7));
+  const ssw = Math.max(0, Math.min(40, Math.floor(passedWeeks)));
+  document.getElementById("weekInfo").textContent = "SSW " + ssw;
+}
+
+/* METRICS */
+function updateMetricLabel(key) {
+  const map = { energy:"energyInput", stress:"stressInput", prep:"prepInput", partner:"partnerInput" };
+  const labelMap = { energy:"energyLabel", stress:"stressLabel", prep:"prepLabel", partner:"partnerLabel" };
+  const val = document.getElementById(map[key]).value;
+  document.getElementById(labelMap[key]).textContent = val;
+}
+function saveMetrics() {
+  userData.metrics.energy = Number(document.getElementById("energyInput").value);
+  userData.metrics.stress = Number(document.getElementById("stressInput").value);
+  userData.metrics.prep = Number(document.getElementById("prepInput").value);
+  userData.metrics.partner = Number(document.getElementById("partnerInput").value);
+  computeScore();
   saveData();
 }
 
+/* NOTES */
 function saveNotes() {
   userData.notes = document.getElementById("notesInput").value;
   saveData();
 }
 
-function saveEnergy() {
-  userData.metrics.energy = Number(document.getElementById("energyInput").value);
+/* DUE DATE */
+function saveDueDate() {
+  userData.dueDate = document.getElementById("dueDateInput").value || null;
+  renderWeeks();
   saveData();
 }
 
-function saveStress() {
-  userData.metrics.stress = Number(document.getElementById("stressInput").value);
+/* LISTEN */
+function renderItems() {
+  const c = document.getElementById("itemsList");
+  c.innerHTML = "";
+  (userData.items || []).forEach((it, idx) => {
+    const row = document.createElement("div");
+    row.className = "item-row";
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!it.done;
+    cb.onchange = () => { it.done = cb.checked; computeScore(); saveData(); };
+    const span = document.createElement("span");
+    span.className = "text";
+    span.textContent = it.text;
+    const del = document.createElement("button");
+    del.className = "danger";
+    del.textContent = "×";
+    del.onclick = () => { userData.items.splice(idx,1); computeScore(); saveData(); renderItems(); };
+    row.appendChild(cb);
+    row.appendChild(span);
+    row.appendChild(del);
+    c.appendChild(row);
+  });
+}
+function addItem() {
+  const inp = document.getElementById("itemsInput");
+  const v = inp.value.trim();
+  if (!v) return;
+  userData.items = userData.items || [];
+  userData.items.push({ text:v, done:false });
+  inp.value = "";
+  computeScore();
   saveData();
+  renderItems();
 }
 
-/* ---------------------------
-   AUTO SYNC
----------------------------- */
+/* BAGS */
+function renderBags() {
+  renderBagList("bagMama","bagMamaList");
+  renderBagList("bagBaby","bagBabyList");
+  renderBagList("bagPartner","bagPartnerList");
+}
+function renderBagList(key, listId) {
+  const c = document.getElementById(listId);
+  c.innerHTML = "";
+  (userData[key] || []).forEach((it, idx) => {
+    const row = document.createElement("div");
+    row.className = "item-row";
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!it.done;
+    cb.onchange = () => { it.done = cb.checked; computeScore(); saveData(); };
+    const span = document.createElement("span");
+    span.className = "text";
+    span.textContent = it.text;
+    const del = document.createElement("button");
+    del.className = "danger";
+    del.textContent = "×";
+    del.onclick = () => { userData[key].splice(idx,1); computeScore(); saveData(); renderBags(); };
+    row.appendChild(cb);
+    row.appendChild(span);
+    row.appendChild(del);
+    c.appendChild(row);
+  });
+}
+function addBagItem(key) {
+  const map = { bagMama:"bagMamaInput", bagBaby:"bagBabyInput", bagPartner:"bagPartnerInput" };
+  const inp = document.getElementById(map[key]);
+  const v = inp.value.trim();
+  if (!v) return;
+  userData[key] = userData[key] || [];
+  userData[key].push({ text:v, done:false });
+  inp.value = "";
+  computeScore();
+  saveData();
+  renderBags();
+}
+
+/* PARTNER TASKS */
+function renderPartnerTasks() {
+  const c = document.getElementById("partnerTasksList");
+  c.innerHTML = "";
+  (userData.partnerTasks || []).forEach((it, idx) => {
+    const row = document.createElement("div");
+    row.className = "item-row";
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!it.done;
+    cb.onchange = () => { it.done = cb.checked; computeScore(); saveData(); };
+    const span = document.createElement("span");
+    span.className = "text";
+    span.textContent = it.text;
+    const del = document.createElement("button");
+    del.className = "danger";
+    del.textContent = "×";
+    del.onclick = () => { userData.partnerTasks.splice(idx,1); computeScore(); saveData(); renderPartnerTasks(); };
+    row.appendChild(cb);
+    row.appendChild(span);
+    row.appendChild(del);
+    c.appendChild(row);
+  });
+}
+function addPartnerTask() {
+  const inp = document.getElementById("partnerTaskInput");
+  const v = inp.value.trim();
+  if (!v) return;
+  userData.partnerTasks = userData.partnerTasks || [];
+  userData.partnerTasks.push({ text:v, done:false });
+  inp.value = "";
+  computeScore();
+  saveData();
+  renderPartnerTasks();
+}
+
+/* GEWICHT */
+function renderWeights() {
+  const c = document.getElementById("weightList");
+  c.innerHTML = "";
+  (userData.weights || []).forEach((w, idx) => {
+    const row = document.createElement("div");
+    row.className = "weight-row";
+    const span = document.createElement("span");
+    span.textContent = (w.date || "–") + " – " + (w.value ?? "") + " kg";
+    const del = document.createElement("button");
+    del.className = "danger";
+    del.textContent = "×";
+    del.onclick = () => { userData.weights.splice(idx,1); saveData(); renderWeights(); };
+    row.appendChild(span);
+    row.appendChild(del);
+    c.appendChild(row);
+  });
+}
+function addWeight() {
+  const d = document.getElementById("weightDate").value || new Date().toISOString().slice(0,10);
+  const v = parseFloat(document.getElementById("weightValue").value);
+  if (isNaN(v)) return;
+  userData.weights = userData.weights || [];
+  userData.weights.push({ date:d, value:v });
+  document.getElementById("weightValue").value = "";
+  saveData();
+  renderWeights();
+}
+
+/* SPIELSYSTEM */
+function computeScore() {
+  const m = userData.metrics || {};
+  const energy = m.energy ?? 0;
+  const stress = m.stress ?? 0;
+  const prep = m.prep ?? 0;
+  const partner = m.partner ?? 0;
+
+  const base = Math.round(
+    energy * 0.3 +
+    (100 - stress) * 0.3 +
+    prep * 0.2 +
+    partner * 0.2
+  );
+
+  const lists = [
+    ...(userData.items || []),
+    ...(userData.bagMama || []),
+    ...(userData.bagBaby || []),
+    ...(userData.bagPartner || []),
+    ...(userData.partnerTasks || [])
+  ];
+  const doneCount = lists.filter(x => x.done).length;
+  const taskXP = doneCount * 5;
+
+  const total = base + taskXP;
+  userData.metrics.score = total;
+
+  const level = Math.max(1, Math.floor(total / 100) + 1);
+  const nextLevelAt = level * 100;
+  const toNext = Math.max(0, nextLevelAt - total);
+
+  document.getElementById("scoreTotal").textContent = total + " XP";
+  document.getElementById("scoreLevel").textContent = "Level " + level + " – " + levelTitle(level);
+  document.getElementById("scoreDetailsMain").textContent =
+    "Werte " + base + " XP · Aufgaben " + taskXP + " XP";
+  document.getElementById("scoreDetailsSub").textContent =
+    "Noch " + toNext + " XP bis Level " + (level + 1);
+}
+
+function levelTitle(level) {
+  if (level <= 1) return "Baby‑Rookie";
+  if (level === 2) return "Nest‑Planer";
+  if (level === 3) return "Kliniktaschen‑Commander";
+  if (level === 4) return "Vorbereitungs‑Profi";
+  if (level === 5) return "Eltern‑Strategist";
+  if (level === 6) return "Baby‑Tycoon";
+  return "Legendäre Eltern";
+}
+
+/* AUTO SYNC */
 setInterval(loadData, 5000);
-
 loadData();
 </script>
 
